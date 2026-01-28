@@ -1,0 +1,66 @@
+body {
+    background-image: url('Background_image.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1{
+    text-align: center;
+    color: white;
+    font-size:80px;
+    margin-top: 5px;
+    animation-name: example;
+  animation-duration: 4s;
+  animation-delay: -4s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes example {
+  0%   {color: red;}
+  20%  {color: #00bfff;}
+  40%  {color: white;}
+  60%  {color: blueviolet;}
+  80% {color: green;}
+  100%  {color:darkgoldenrod;}
+
+}
+
+#p1{
+    text-align:left;
+    margin-left: 50px;
+    font-family: Cursive;
+    font-size: xx-large;
+    color: white;
+}
+
+select {
+    width: 20rem;
+    background-color: white;
+    border: #00bfff 2px solid;
+    border-radius: 8px;
+}
+
+select:hover {
+    background-color: #00bfff;
+}
+
+select>option {
+    width: 100%;
+    box-sizing: border-box;
+    background-color:white;
+}
+
+button {
+    text-align: center;
+    margin-left: 120px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 8px;
+}
+
+button:hover {
+    background-color: #00bfff;
+    color: white
+}

@@ -1,0 +1,140 @@
+body {
+    background-image: url("Background_image.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1{
+    text-align: center;
+    color: white;
+    font-size:500%;
+    margin-top: 5px;
+    animation-name: example;
+  animation-duration: 4s;
+  animation-delay: -4s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes example {
+  0%   {color: red;}
+  20%  {color: #00bfff;}
+  40%  {color: white;}
+  60%  {color: blueviolet;}
+  80% {color: green;}
+  100%  {color:darkgoldenrod;}
+
+}
+
+#login-form {
+    margin-left: 10%;
+    margin-top: 12%;
+}
+
+#login-username {
+    width: 40%;
+    text-align: center;
+}
+
+
+#login-password {
+    width: 40%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#login-button {
+    width: 10%;
+    margin-top: 5%;
+    margin-left: 15%;
+    text-align: center;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-size: 100%;
+    border-radius: 8px;
+}
+
+#login-button:hover {
+    background-color: #00bfff;
+    color: white
+}
+
+#account {
+    margin-left: 13%;
+    font-size: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .login-username{
+        align-items: center;
+        width: 200px;
+        margin-left: 250px;
+    }
+}
+
+/* This is now the css for the register page*/
+
+#register-form {
+    margin-left: 10%;
+    margin-top: 10%;
+}
+
+#register-fname{
+    width: 40%;
+    text-align: center;
+}
+
+#register-lname {
+    width: 40%;
+    margin-top: 2%;
+    text-align: center;
+}
+#register-email {
+    width: 40%;
+    margin-top: 2%;
+    text-align: center;
+}
+
+#register-phone {
+    width: 40%;
+    margin-top: 2%;
+    text-align: center;
+}
+
+#register-username {
+    width: 40%;
+    margin-top: 2%;
+    text-align: center;
+}
+
+#register-password {
+    width: 40%;
+    margin-top: 2%;
+    text-align: center;
+}
+
+#register-confirm {
+    width: 40%;
+    margin-top: 2%;
+    text-align: center;
+}
+
+#register-button {
+    width: 10%;
+    margin-left: 15%;
+    margin-top: 5%;
+    text-align: center;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-size: 100%;
+    border-radius: 8px;
+}
+
+#register-button:hover {
+    background-color: #00bfff;
+    color: white
+}
+
+#account2 {
+    margin-left: 12%;
+}
