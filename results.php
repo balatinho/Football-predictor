@@ -23,17 +23,25 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <head>
     <meta charset="UTF-8">
-    <title>Saved Predictions</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Saved Preictions</title>
 </head>
 
 <body>
-    <nav>
-        <a href="index.php">Home</a> |
-        <a href="predict.php">Predict</a> |
-        <a href="results.php">Results</a> |
-        <a href="about.php">About</a>
-    </nav>
+    <header class="banner">
+        <div class="inner-banner">
+            <a href="index.php" class="logo"><i>ScoreSight</i></a>
+
+            <nav class="nav-bar">
+                <a href="index.php">Home</a>
+                <a href="predict.php">Predict</a>
+                <a class="active" href="results.php">Results</a>
+                <a href="about.php">About</a>
+            </nav>
+        </div>
+    </header>
+
     <h1>Saved Predictions</h1>
 
     <table border="1" cellpadding="6">

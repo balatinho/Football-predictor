@@ -11,7 +11,7 @@
 <body>
     <header class="banner">
         <div class="inner-banner">
-            <div class="logo"><i>ScoreSight</i></div>
+            <a href="index.php" class="logo"><i>ScoreSight</i></a>
 
             <nav class="nav-bar">
                 <a class="active" href="index.php">Home</a>
@@ -45,6 +45,8 @@
             </ol>
         </section>
     </main>
+
+    <script src="js/script"></script>
 </body>
 
 </html>

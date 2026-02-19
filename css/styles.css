@@ -23,25 +23,25 @@ body {
 }
 
 .inner-banner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px 15px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    position: relative;
+    padding: 15px 30px;
 }
 
 .logo {
-    margin-left: 0;
+    position: absolute;
+    left: 20px;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
     color: blue;
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
 }
 
 .nav-bar {
     display: flex;
-    gap: 14px;
+    gap: 30px;
 }
 
 .nav-bar a {
@@ -54,6 +54,11 @@ body {
 
 .nav-bar a:hover {
     background: #444;
+}
+
+.nav-bar a.active {
+    color: black;
+    background: white;
 }
 
 .hero {
@@ -73,16 +78,14 @@ body {
 
 .primary-btn {
     display: inline-block;
+    justify-content: center;
     text-decoration: none;
     padding: 7px 14px;
     border-radius: 8px;
     font-size: 15px;
     font-weight: 600;
-}
-
-.primary-btn {
-    background: #000;
-    color: #fff;
+    background: black;
+    color: white;
 }
 
 .primary-btn:hover {
@@ -109,4 +112,75 @@ body {
 
 .steps li {
     margin: 6px 0;
+}
+
+.toggle{
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.toggle:hover{
+  opacity: 0.9;
+}
+
+/* Prediction Page CSS */
+
+.prediction-page {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.predict-card {
+    width: 100%;
+    max-width: 800px;
+    padding: 30px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.field select {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn button {
+    padding: 6px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    background: black;
+    color: white;
+}
+
+.btn button:hover {
+    background: #555;
 }
