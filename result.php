@@ -3,8 +3,8 @@ require 'db.php';
 require 'functions.php';
 
 // 1) Read and validate input
-$homeId = isset($_POST['home_team']) ? (int)$_POST['home_team'] : 0;
-$awayId = isset($_POST['away_team']) ? (int)$_POST['away_team'] : 0;
+$homeId = isset($_POST['home_team']) ? (int) $_POST['home_team'] : 0;
+$awayId = isset($_POST['away_team']) ? (int) $_POST['away_team'] : 0;
 
 if ($homeId <= 0 || $awayId <= 0) {
     die("Error: Please select both teams.");
@@ -38,9 +38,9 @@ $insert->execute([
     ':home' => $homeId,
     ':away' => $awayId,
     ':pred' => $result['predicted'],
-    ':ph'   => $result['p_home'],
-    ':pd'   => $result['p_draw'],
-    ':pa'   => $result['p_away']
+    ':ph' => $result['p_home'],
+    ':pd' => $result['p_draw'],
+    ':pa' => $result['p_away']
 ]);
 
 ?>
@@ -69,26 +69,58 @@ $insert->execute([
         </div>
     </header>
 
-<h1>Prediction Result</h1>
+    <h1>Prediction Result</h1>
 
-<p><strong>Match:</strong> <?= htmlspecialchars($homeName) ?> vs <?= htmlspecialchars($awayName) ?></p>
+    <p><strong>Match:</strong> <?= htmlspecialchars($homeName) ?> vs <?= htmlspecialchars($awayName) ?></p>
 
-<p><strong>Predicted Outcome:</strong> <?= htmlspecialchars($result['predicted']) ?></p>
+    <p><strong>Predicted Outcome:</strong> <?= htmlspecialchars($result['predicted']) ?></p>
 
-<h2>Outcome Probabilities</h2>
-<ul>
-  <li>Home Win: <?= round($result['p_home'] * 100, 2) ?>%</li>
-  <li>Draw: <?= round($result['p_draw'] * 100, 2) ?>%</li>
-  <li>Away Win: <?= round($result['p_away'] * 100, 2) ?>%</li>
-</ul>
+    <h2>Outcome Probabilities</h2>
 
-<h2>Model Details (for transparency)</h2>
-<ul>
-  <li>Home expected goals (λ): <?= round($result['home_lambda'], 3) ?></li>
-  <li>Away expected goals (λ): <?= round($result['away_lambda'], 3) ?></li>
-</ul>
+    <?php
+    // Convert probabilities to percentages for display
+    $homePct = round($result['p_home'] * 100, 2);
+    $drawPct = round($result['p_draw'] * 100, 2);
+    $awayPct = round($result['p_away'] * 100, 2);
+    ?>
 
-<p><a href="index.php">Make another prediction</a></p>
+    <div class="prob-bars">
+        <ul>
+            <div class="prob-row">
+                <li><div class="prob-label">Home Win</div></li>
+                <div class="prob-track">
+                    <div class="prob-fill" style="width: <?= $homePct ?>%;"></div>
+                </div>
+                <div class="prob-value"><?= $homePct ?>%</div>
+            </div>
+
+            <div class="prob-row">
+                <li><div class="prob-label">Draw</div></li>
+                <div class="prob-track">
+                    <div class="prob-fill" style="width: <?= $drawPct ?>%;"></div>
+                </div>
+                <div class="prob-value"><?= $drawPct ?>%</div>
+            </div>
+
+            <div class="prob-row">
+                <li><div class="prob-label">Away Win</div></li>
+                <div class="prob-track">
+                    <div class="prob-fill" style="width: <?= $awayPct ?>%;"></div>
+                </div>
+                <div class="prob-value"><?= $awayPct ?>%</div>
+            </div>
+        </ul>
+
+    </div>
+
+    <h2>Model Details (for transparency)</h2>
+    <ul>
+        <li>Home expected goals (λ): <?= round($result['home_lambda'], 3) ?></li>
+        <li>Away expected goals (λ): <?= round($result['away_lambda'], 3) ?></li>
+    </ul>
+
+    <p><a class="result-btn" href="index.php">Make another prediction</a></p>
 
 </body>
+
 </html>

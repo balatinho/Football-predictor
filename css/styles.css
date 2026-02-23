@@ -184,3 +184,58 @@ body {
 .btn button:hover {
     background: #555;
 }
+
+/* Result Page CSS */
+
+.prob-bars {
+  max-width: 500px;
+  margin-top: 12px;
+}
+
+.prob-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  gap: 10px;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.prob-label {
+  font-weight: 600;
+}
+
+.prob-track {
+  height: 16px;
+  background: #e6e6e6;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.prob-fill {
+  height: 90%;
+  background: #2f7dd7;
+  width: 0%;
+  border-radius: 999px;
+}
+
+.prob-value {
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.result-btn {
+    display: inline-block;
+    justify-content: center;
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    background: black;
+    color: white;
+    margin-left: 2%;
+}
+
+.result-btn:hover {
+    background: #555;
+}
