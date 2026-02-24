@@ -69,58 +69,70 @@ $insert->execute([
         </div>
     </header>
 
-    <h1>Prediction Result</h1>
+    <main class="container result-page">
 
-    <p><strong>Match:</strong> <?= htmlspecialchars($homeName) ?> vs <?= htmlspecialchars($awayName) ?></p>
+        <h1>Prediction Result</h1>
 
-    <p><strong>Predicted Outcome:</strong> <?= htmlspecialchars($result['predicted']) ?></p>
+        <div class="result-card">
 
-    <h2>Outcome Probabilities</h2>
+            <p><strong>Match:</strong> <?= htmlspecialchars($homeName) ?> vs <?= htmlspecialchars($awayName) ?></p>
 
-    <?php
-    // Convert probabilities to percentages for display
-    $homePct = round($result['p_home'] * 100, 2);
-    $drawPct = round($result['p_draw'] * 100, 2);
-    $awayPct = round($result['p_away'] * 100, 2);
-    ?>
+            <p><strong>Predicted Outcome:</strong> <?= htmlspecialchars($result['predicted']) ?></p>
 
-    <div class="prob-bars">
-        <ul>
-            <div class="prob-row">
-                <li><div class="prob-label">Home Win</div></li>
-                <div class="prob-track">
-                    <div class="prob-fill" style="width: <?= $homePct ?>%;"></div>
+            <h2>Outcome Probabilities</h2>
+
+            <?php
+            // Convert probabilities to percentages for display
+            $homePct = round($result['p_home'] * 100, 2);
+            $drawPct = round($result['p_draw'] * 100, 2);
+            $awayPct = round($result['p_away'] * 100, 2);
+            ?>
+
+            <div class="prob-bars">
+                <div class="prob-row">
+
+                    <div class="prob-label">Home Win</div>
+
+                    <div class="prob-track">
+                        <div class="prob-fill" style="width: <?= $homePct ?>%;"></div>
+                    </div>
+                    <div class="prob-value"><?= $homePct ?>%</div>
                 </div>
-                <div class="prob-value"><?= $homePct ?>%</div>
+
+                <div class="prob-row">
+
+                    <div class="prob-label">Draw</div>
+
+                    <div class="prob-track">
+                        <div class="prob-fill" style="width: <?= $drawPct ?>%;"></div>
+                    </div>
+                    <div class="prob-value"><?= $drawPct ?>%</div>
+                </div>
+
+                <div class="prob-row">
+
+                    <div class="prob-label">Away Win</div>
+
+                    <div class="prob-track">
+                        <div class="prob-fill" style="width: <?= $awayPct ?>%;"></div>
+                    </div>
+                    <div class="prob-value"><?= $awayPct ?>%</div>
+                </div>
+
+
             </div>
 
-            <div class="prob-row">
-                <li><div class="prob-label">Draw</div></li>
-                <div class="prob-track">
-                    <div class="prob-fill" style="width: <?= $drawPct ?>%;"></div>
-                </div>
-                <div class="prob-value"><?= $drawPct ?>%</div>
+            <h2>Model Details (for transparency)</h2>
+            <ul>
+                <li>Home expected goals (λ): <?= round($result['home_lambda'], 3) ?></li>
+                <li>Away expected goals (λ): <?= round($result['away_lambda'], 3) ?></li>
+            </ul>
+            <div class="result-actions">
+            <a class="result-btn" href="index.php">Make another prediction</a>
+            <a class="result-btn" href="results.php">View saved predictions</a>
             </div>
-
-            <div class="prob-row">
-                <li><div class="prob-label">Away Win</div></li>
-                <div class="prob-track">
-                    <div class="prob-fill" style="width: <?= $awayPct ?>%;"></div>
-                </div>
-                <div class="prob-value"><?= $awayPct ?>%</div>
-            </div>
-        </ul>
-
-    </div>
-
-    <h2>Model Details (for transparency)</h2>
-    <ul>
-        <li>Home expected goals (λ): <?= round($result['home_lambda'], 3) ?></li>
-        <li>Away expected goals (λ): <?= round($result['away_lambda'], 3) ?></li>
-    </ul>
-
-    <p><a class="result-btn" href="index.php">Make another prediction</a></p>
-
+        </div>
+    </main>
 </body>
 
 </html>

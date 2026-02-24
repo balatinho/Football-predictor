@@ -114,18 +114,18 @@ body {
     margin: 6px 0;
 }
 
-.toggle{
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text);
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
+.toggle {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-.toggle:hover{
-  opacity: 0.9;
+.toggle:hover {
+    opacity: 0.9;
 }
 
 /* Prediction Page CSS */
@@ -185,57 +185,91 @@ body {
     background: #555;
 }
 
+/* Results page layout */
+.results-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* centers blocks */
+    text-align: left;
+}
 /* Result Page CSS */
 
+.result-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* centers blocks */
+    text-align: left;
+}
+
+/* Card-style panel for the result content */
+.result-card {
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 10px;
+}
+
 .prob-bars {
-  max-width: 500px;
-  margin-top: 12px;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 12px;
 }
 
 .prob-row {
-  display: grid;
-  grid-template-columns: 80px 1fr 80px;
-  gap: 10px;
-  align-items: center;
-  margin: 5px 0;
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    gap: 10px;
+    align-items: center;
+    margin: 12px 0;
 }
 
 .prob-label {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .prob-track {
-  height: 16px;
-  background: #e6e6e6;
-  border-radius: 999px;
-  overflow: hidden;
+    height: 16px;
+    background: #e6e6e6;
+    border-radius: 999px;
+    overflow: hidden;
 }
 
 .prob-fill {
-  height: 90%;
-  background: #2f7dd7;
-  width: 0%;
-  border-radius: 999px;
+    height: 100%;
+    background: #2f7dd7;
+    width: 0%;
+    border-radius: 999px;
 }
 
 .prob-value {
-  text-align: left;
-  font-variant-numeric: tabular-nums;
+    text-align: left;
+    font-variant-numeric: tabular-nums;
 }
 
 .result-btn {
     display: inline-block;
     justify-content: center;
     text-decoration: none;
-    padding: 7px 14px;
+    padding: 5px 10px;
     border-radius: 8px;
     font-size: 15px;
     font-weight: 600;
     background: black;
     color: white;
-    margin-left: 2%;
 }
 
 .result-btn:hover {
     background: #555;
+}
+
+.result-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 12px;
 }

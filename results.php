@@ -42,30 +42,33 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </header>
 
-    <h1>Saved Predictions</h1>
+    <main class="container results-page">
 
-    <table border="1" cellpadding="6">
-        <tr>
-            <th>ID</th>
-            <th>Match</th>
-            <th>Prediction</th>
-            <th>Home%</th>
-            <th>Draw%</th>
-            <th>Away%</th>
-            <th>Date</th>
-        </tr>
-        <?php foreach ($rows as $r): ?>
+        <h1>Saved Predictions</h1>
+
+        <table border="1" cellpadding="6">
             <tr>
-                <td><?= (int) $r['prediction_id'] ?></td>
-                <td><?= htmlspecialchars($r['home_team']) ?> vs <?= htmlspecialchars($r['away_team']) ?></td>
-                <td><?= htmlspecialchars($r['predicted_outcome']) ?></td>
-                <td><?= round($r['p_home'] * 100, 2) ?>%</td>
-                <td><?= round($r['p_draw'] * 100, 2) ?>%</td>
-                <td><?= round($r['p_away'] * 100, 2) ?>%</td>
-                <td><?= htmlspecialchars($r['created_at']) ?></td>
+                <th>ID</th>
+                <th>Match</th>
+                <th>Prediction</th>
+                <th>Home%</th>
+                <th>Draw%</th>
+                <th>Away%</th>
+                <th>Date</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
+            <?php foreach ($rows as $r): ?>
+                <tr>
+                    <td><?= (int) $r['prediction_id'] ?></td>
+                    <td><?= htmlspecialchars($r['home_team']) ?> vs <?= htmlspecialchars($r['away_team']) ?></td>
+                    <td><?= htmlspecialchars($r['predicted_outcome']) ?></td>
+                    <td><?= round($r['p_home'] * 100, 2) ?>%</td>
+                    <td><?= round($r['p_draw'] * 100, 2) ?>%</td>
+                    <td><?= round($r['p_away'] * 100, 2) ?>%</td>
+                    <td><?= htmlspecialchars($r['created_at']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </main>
 
 </body>
 
