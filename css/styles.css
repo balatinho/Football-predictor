@@ -39,6 +39,13 @@ body {
     color: blue;
 }
 
+@media (max-width: 750px) {
+  .logo {
+    position: static;
+    margin-right: 50px;
+  }
+}
+
 .nav-bar {
     display: flex;
     gap: 30px;
@@ -192,6 +199,20 @@ body {
     align-items: center;
     /* centers blocks */
     text-align: left;
+}
+
+.search-btn {
+    display: inline-block;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 14px;
+    background: black;
+    color: white;
+    border-radius: 3px;
+}
+
+.search-btn:hover {
+    background: #555;
 }
 /* Result Page CSS */
 
