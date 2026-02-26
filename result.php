@@ -30,18 +30,28 @@ if (!$homeName || !$awayName) {
 $result = predict_poisson($pdo, $homeId, $awayId, 5);
 
 // 4) Store prediction (for evaluation later)
-$insert = $pdo->prepare("
+try {
+    $insert = $pdo->prepare("
     INSERT INTO predictions (home_team_id, away_team_id, predicted_outcome, p_home, p_draw, p_away, created_at)
     VALUES (:home, :away, :pred, :ph, :pd, :pa, NOW())
+    ON DUPLICATE KEY UPDATE
+        predicted_outcome = VALUES(predicted_outcome),
+        p_home = VALUES(p_home),
+        p_draw = VALUES(p_draw),
+        p_away = VALUES(p_away),
+        created_at = NOW();
 ");
-$insert->execute([
-    ':home' => $homeId,
-    ':away' => $awayId,
-    ':pred' => $result['predicted'],
-    ':ph' => $result['p_home'],
-    ':pd' => $result['p_draw'],
-    ':pa' => $result['p_away']
-]);
+    $insert->execute([
+        ':home' => $homeId,
+        ':away' => $awayId,
+        ':pred' => $result['predicted'],
+        ':ph' => $result['p_home'],
+        ':pd' => $result['p_draw'],
+        ':pa' => $result['p_away']
+    ]);
+} catch (PDOException $e) {
+    die("Database error occured");
+}
 
 ?>
 <!DOCTYPE html>
@@ -72,6 +82,10 @@ $insert->execute([
     <main class="container result-page">
 
         <h1>Prediction Result</h1>
+
+        <?php if (isset($message)): ?>
+            <p style="color: blue;"><strong><?= htmlspecialchars($message) ?></strong></p>
+        <?php endif; ?>
 
         <div class="result-card">
 
@@ -128,8 +142,8 @@ $insert->execute([
                 <li>Away expected goals (λ): <?= round($result['away_lambda'], 3) ?></li>
             </ul>
             <div class="result-actions">
-            <a class="result-btn" href="index.php">Make another prediction</a>
-            <a class="result-btn" href="results.php">View saved predictions</a>
+                <a class="result-btn" href="predict.php">Make another prediction</a>
+                <a class="result-btn" href="results.php">View saved predictions</a>
             </div>
         </div>
     </main>
