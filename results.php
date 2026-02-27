@@ -62,6 +62,8 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a class="active" href="results.php">Results</a>
                 <a href="about.php">About</a>
             </nav>
+
+            <button id="theme" class="theme-toggle" type="button" aria-label="Toggle dark mode"> Dark Mode </button>
         </div>
     </header>
 
@@ -82,7 +84,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <table border="1" cellpadding="6">
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Match</th>
                 <th>Prediction</th>
                 <th>Home%</th>
@@ -90,9 +92,11 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>Away%</th>
                 <th>Date</th>
             </tr>
-            <?php foreach ($rows as $r): ?>
-                <tr>
-                    <td><?= (int) $r['prediction_id'] ?></td>
+            <?php
+            $counter = 1;
+            foreach ($rows as $r): ?>
+                <tr onclick="window.location='result.php?id=<?= (int) $r['prediction_id'] ?>'" style="cursor: pointer;">
+                    <td><?= $counter++ ?></td>
                     <td><?= htmlspecialchars($r['home_team']) ?> vs <?= htmlspecialchars($r['away_team']) ?></td>
                     <td><?= htmlspecialchars($r['predicted_outcome']) ?></td>
                     <td><?= round($r['p_home'] * 100, 2) ?>%</td>

@@ -30,6 +30,14 @@ body {
     padding: 15px 30px;
 }
 
+@media (max-width: 750px) {
+    .inner-banner {
+        position: static;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
 .logo {
     position: absolute;
     left: 20px;
@@ -40,10 +48,34 @@ body {
 }
 
 @media (max-width: 750px) {
-  .logo {
-    position: static;
-    margin-right: 50px;
-  }
+    .logo {
+        position: static;
+        font-size: 24px;
+    }
+}
+
+.theme-toggle {
+    position: absolute;
+    right: 20px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    background: #999;
+}
+
+@media (max-width: 750px) {
+    .theme-toggle {
+        position: static;
+        padding: 5px 10px;
+        margin-top: 10px;
+    }
 }
 
 .nav-bar {
@@ -57,6 +89,12 @@ body {
     padding: 8px 10px;
     border-radius: 6px;
     font-size: 14px;
+}
+
+@media (max-width: 750px) {
+    .nav-bar a {
+        padding: 5px 10px;
+    }
 }
 
 .nav-bar a:hover {
@@ -201,6 +239,10 @@ body {
     text-align: left;
 }
 
+.results-page table tr:hover {
+    background-color: #f2f2f2;
+}
+
 .search-btn {
     display: inline-block;
     justify-content: center;
@@ -214,6 +256,7 @@ body {
 .search-btn:hover {
     background: #555;
 }
+
 /* Result Page CSS */
 
 .result-page {
@@ -289,8 +332,8 @@ body {
 }
 
 .result-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 12px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 12px;
 }

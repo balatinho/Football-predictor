@@ -29,6 +29,8 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                 <a href="results.php">Results</a>
                 <a href="about.php">About</a>
             </nav>
+
+            <button id="theme" class="theme-toggle" type="button" aria-label="Toggle dark mode"> Dark Mode </button>
         </div>
     </header>
 

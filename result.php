@@ -2,55 +2,103 @@
 require 'db.php';
 require 'functions.php';
 
-// 1) Read and validate input
-$homeId = isset($_POST['home_team']) ? (int) $_POST['home_team'] : 0;
-$awayId = isset($_POST['away_team']) ? (int) $_POST['away_team'] : 0;
+// If viewing an existing prediction
+if (isset($_GET['id'])) {
 
-if ($homeId <= 0 || $awayId <= 0) {
-    die("Error: Please select both teams.");
-}
+    $predictionId = (int) $_GET['id'];
 
-if ($homeId === $awayId) {
-    die("Error: Home and Away teams must be different.");
-}
+    $stmt = $pdo->prepare("
+        SELECT
+            p.*,
+            t1.team_name AS home_team,
+            t2.team_name AS away_team
+        FROM predictions p
+        JOIN teams t1 ON p.home_team_id = t1.team_id
+        JOIN teams t2 ON p.away_team_id = t2.team_id
+        WHERE p.prediction_id = :id
+    ");
 
-// 2) Fetch team names for display
-$stmt = $pdo->prepare("SELECT team_name FROM teams WHERE team_id = :id");
-$stmt->execute([':id' => $homeId]);
-$homeName = $stmt->fetchColumn();
+    $stmt->execute([':id' => $predictionId]);
+    $saved = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$stmt->execute([':id' => $awayId]);
-$awayName = $stmt->fetchColumn();
+    if (!$saved) {
+        die("Prediction not found.");
+    }
 
-if (!$homeName || !$awayName) {
-    die("Error: One or both teams not found in the database.");
-}
+    // Use saved data instead of recalculating
+    $homeName = $saved['home_team'];
+    $awayName = $saved['away_team'];
 
-// 3) Run prediction
-$result = predict_poisson($pdo, $homeId, $awayId, 5);
+    $result = [
+        'predicted' => $saved['predicted_outcome'],
+        'p_home' => $saved['p_home'],
+        'p_draw' => $saved['p_draw'],
+        'p_away' => $saved['p_away'],
+        'home_lambda' => $saved['home_lambda'],
+        'away_lambda' => $saved['away_lambda'],
+    ];
 
-// 4) Store prediction (for evaluation later)
-try {
-    $insert = $pdo->prepare("
-    INSERT INTO predictions (home_team_id, away_team_id, predicted_outcome, p_home, p_draw, p_away, created_at)
-    VALUES (:home, :away, :pred, :ph, :pd, :pa, NOW())
+    $viewMode = "saved";
+
+} else {
+
+    $viewMode = "new";
+
+    // 1) Read and validate input
+    $homeId = isset($_POST['home_team']) ? (int) $_POST['home_team'] : 0;
+    $awayId = isset($_POST['away_team']) ? (int) $_POST['away_team'] : 0;
+
+    if ($homeId <= 0 || $awayId <= 0) {
+        die("Error: Please select both teams.");
+    }
+
+    if ($homeId === $awayId) {
+        die("Error: Home and Away teams must be different.");
+    }
+
+    // 2) Fetch team names for display
+    $stmt = $pdo->prepare("SELECT team_name FROM teams WHERE team_id = :id");
+    $stmt->execute([':id' => $homeId]);
+    $homeName = $stmt->fetchColumn();
+
+    $stmt->execute([':id' => $awayId]);
+    $awayName = $stmt->fetchColumn();
+
+    if (!$homeName || !$awayName) {
+        die("Error: One or both teams not found in the database.");
+    }
+
+    // 3) Run prediction
+    $result = predict_poisson($pdo, $homeId, $awayId, 5);
+
+    // 4) Store prediction (for evaluation later)
+    try {
+        $insert = $pdo->prepare("
+    INSERT INTO predictions (home_team_id, away_team_id, predicted_outcome, p_home, p_draw, p_away, home_lambda, away_lambda, created_at)
+    VALUES 
+        (:home, :away, :pred, :ph, :pd, :pa, :hl, :al, NOW())
     ON DUPLICATE KEY UPDATE
         predicted_outcome = VALUES(predicted_outcome),
         p_home = VALUES(p_home),
         p_draw = VALUES(p_draw),
         p_away = VALUES(p_away),
+        home_lambda = VALUES(home_lambda),
+        away_lambda = VALUES(away_lambda),
         created_at = NOW();
 ");
-    $insert->execute([
-        ':home' => $homeId,
-        ':away' => $awayId,
-        ':pred' => $result['predicted'],
-        ':ph' => $result['p_home'],
-        ':pd' => $result['p_draw'],
-        ':pa' => $result['p_away']
-    ]);
-} catch (PDOException $e) {
-    die("Database error occured");
+        $insert->execute([
+            ':home' => $homeId,
+            ':away' => $awayId,
+            ':pred' => $result['predicted'],
+            ':ph' => $result['p_home'],
+            ':pd' => $result['p_draw'],
+            ':pa' => $result['p_away'],
+            ':hl' => $result['home_lambda'],
+            ':al' => $result['away_lambda']
+        ]);
+    } catch (PDOException $e) {
+        die("Database error occured");
+    }
 }
 
 ?>
@@ -76,6 +124,8 @@ try {
                 <a href="about.php">About</a>
                 <a class="active" href="result.php">Result</a>
             </nav>
+
+            <button id="theme" class="theme-toggle" type="button" aria-label="Toggle dark mode"> Dark Mode </button>
         </div>
     </header>
 
@@ -136,11 +186,13 @@ try {
 
             </div>
 
-            <h2>Model Details (for transparency)</h2>
-            <ul>
-                <li>Home expected goals (λ): <?= round($result['home_lambda'], 3) ?></li>
-                <li>Away expected goals (λ): <?= round($result['away_lambda'], 3) ?></li>
-            </ul>
+            <?php if (!empty($result['home_lambda']) && !empty($result['away_lambda'])): ?>
+                <h2>Model Details</h2>
+                <ul>
+                    <li>Home expected goals (λ): <?= round((float) $result['home_lambda'], 3) ?></li>
+                    <li>Away expected goals (λ): <?= round((float) $result['away_lambda'], 3) ?></li>
+                </ul>
+            <?php endif; ?>
             <div class="result-actions">
                 <a class="result-btn" href="predict.php">Make another prediction</a>
                 <a class="result-btn" href="results.php">View saved predictions</a>
