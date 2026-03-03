@@ -1,3 +1,5 @@
+<?php require 'header.php'; ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -9,17 +11,25 @@
 </head>
 
 <body>
-    <header class="banner">
-        <div class="inner-banner">
-            <a href="index.php" class="logo"><i>ScoreSight</i></a>
+    <main class="container">
+        <h1 class="page-title">About ScoreSight</h1>
+        <p>ScoreSight is a web-based football outcome prediction system using a transparent Poisson-based statistical
+            approach.</p>
 
-            <nav class="nav-bar">
-                <a href="index.php">Home</a>
-                <a href="predict.php">Predict</a>
-                <a href="results.php">Results</a>
-                <a class="active" href="about.php">About</a>
-            </nav>
+        <h2>Data Source</h2>
+        <p>Historical match results were imported from Football-Data.co.uk and stored in a normalised MySQL database.
+        </p>
 
-            <button id="theme" class="theme-toggle" type="button" aria-label="Toggle dark mode"> Dark Mode </button>
-        </div>
-    </header>
+        <h2>How Predictions Work</h2>
+        <p>The model estimates expected goals (λ) for each team and computes probabilities for Home Win, Draw and Away
+            Win.</p>
+
+        <h2>Limitations</h2>
+        <ul class="steps">
+            <li>Does not include injuries, transfers or live team form.</li>
+            <li>Poisson assumptions may not hold for all matches.</li>
+        </ul>
+        <script src="js/script.js"></script>
+    </main>
+    <?php require 'footer.php'; ?>
+</body>

@@ -23,18 +23,37 @@ document.addEventListener("DOMContentLoaded", () => {
     return true;
   }
 
-  home.addEventListener("change", validateTeams);
-  away.addEventListener("change", validateTeams);
+  if (form) {
+    home.addEventListener("change", validateTeams);
+    away.addEventListener("change", validateTeams);
 
-  form.addEventListener("submit", (e) => {
-    if (!validateTeams()) {
-      e.preventDefault();
-    }
-  });
+    form.addEventListener("submit", (e) => {
+      if (!validateTeams()) {
+        e.preventDefault();
+      }
+    });
 
-  form.addEventListener("reset", () => {
-    setTimeout(() => {
-      clearError();
-    }, 0);
+    form.addEventListener("reset", () => {
+      setTimeout(() => {
+        clearError();
+      }, 0);
+    });
+  }
+
+  const btn = document.getElementById("theme");
+  if (!btn) return;
+
+  const saved = localStorage.getItem("theme");
+  if (saved === "dark") {
+    document.body.classList.add("dark");
+    btn.textContent = "☀️ Light Mode";
+  } else {
+    btn.textContent = "🌙 Dark Mode";
+  }
+
+  btn.addEventListener("click", () => {
+    const isDark = document.body.classList.toggle("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    btn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
   });
 });

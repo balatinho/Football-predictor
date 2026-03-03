@@ -1,6 +1,7 @@
 <?php
 require 'db.php';
 require 'functions.php';
+require 'header.php';
 
 // If viewing an existing prediction
 if (isset($_GET['id'])) {
@@ -109,25 +110,10 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css" />
-    <title>Home Page</title>
+    <title>Result Page</title>
 </head>
 
 <body>
-    <header class="banner">
-        <div class="inner-banner">
-            <a href="index.php" class="logo"><i>ScoreSight</i></a>
-
-            <nav class="nav-bar">
-                <a href="index.php">Home</a>
-                <a href="predict.php">Predict</a>
-                <a href="results.php">Results</a>
-                <a href="about.php">About</a>
-                <a class="active" href="result.php">Result</a>
-            </nav>
-
-            <button id="theme" class="theme-toggle" type="button" aria-label="Toggle dark mode"> Dark Mode </button>
-        </div>
-    </header>
 
     <main class="container result-page">
 
@@ -194,11 +180,13 @@ if (isset($_GET['id'])) {
                 </ul>
             <?php endif; ?>
             <div class="result-actions">
-                <a class="result-btn" href="predict.php">Make another prediction</a>
-                <a class="result-btn" href="results.php">View saved predictions</a>
+                <a class="result-btn" href="/predictor/predict">Make another prediction</a>
+                <a class="result-btn" href="/predictor/results">View saved predictions</a>
             </div>
         </div>
     </main>
+    <?php require 'footer.php'; ?>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

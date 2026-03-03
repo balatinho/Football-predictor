@@ -1,3 +1,10 @@
+<?php
+require 'db.php';
+$teamCount = (int) $pdo->query("SELECT COUNT(*) FROM teams")->fetchColumn();
+$matchCount = (int) $pdo->query("SELECT COUNT(*) FROM matches")->fetchColumn();
+$predCount = (int) $pdo->query("SELECT COUNT(*) FROM predictions")->fetchColumn();
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -9,20 +16,8 @@
 </head>
 
 <body>
-    <header class="banner">
-        <div class="inner-banner">
-            <a href="index.php" class="logo"><i>ScoreSight</i></a>
 
-            <nav class="nav-bar">
-                <a class="active" href="index.php">Home</a>
-                <a href="predict.php">Predict</a>
-                <a href="results.php">Results</a>
-                <a href="about.php">About</a>
-            </nav>
-
-            <button id="theme" class="theme-toggle" type="button" aria-label="Toggle dark mode"> Dark Mode </button>
-        </div>
-    </header>
+    <?php require 'header.php'; ?>
 
     <main class="container">
         <section class="hero">
@@ -33,7 +28,7 @@
                 Select two teams to receive a predicted outcome and probabilities for Home Win, Draw, and Away Win.
             </p>
 
-            <a class="primary-btn" href="predict.php">Make a Prediction</a>
+            <a class="primary-btn" href="/predictor/predict">Make a Prediction</a>
 
         </section>
 
@@ -46,9 +41,26 @@
                 <li>The predicted outcome and probabilities are displayed and saved for evaluation.</li>
             </ol>
         </section>
+
+        <section class="card">
+            <h2>System Status</h2>
+            <ul class="steps">
+                <li><strong>Teams:</strong>
+                    <?= $teamCount ?>
+                </li>
+                <li><strong>Matches:</strong>
+                    <?= $matchCount ?>
+                </li>
+                <li><strong>Predictions stored:</strong>
+                    <?= $predCount ?>
+                </li>
+            </ul>
+        </section>
     </main>
 
-    <script src="js/script"></script>
+    <?php require 'footer.php'; ?>
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>

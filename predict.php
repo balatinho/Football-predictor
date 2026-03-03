@@ -1,6 +1,7 @@
 <?php
 
 require 'db.php';
+require 'header.php';
 
 $stmt = $pdo->query("SELECT team_id, team_name FROM teams ORDER BY team_name");
 $teams = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -19,20 +20,6 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 </head>
 
 <body>
-    <header class="banner">
-        <div class="inner-banner">
-            <a href="index.php" class="logo"><i>ScoreSight</i></a>
-
-            <nav class="nav-bar">
-                <a href="index.php">Home</a>
-                <a class="active" href="predict.php">Predict</a>
-                <a href="results.php">Results</a>
-                <a href="about.php">About</a>
-            </nav>
-
-            <button id="theme" class="theme-toggle" type="button" aria-label="Toggle dark mode"> Dark Mode </button>
-        </div>
-    </header>
 
     <main class="prediction-page">
         <div class="predict-card">
@@ -44,7 +31,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                 <?= htmlspecialchars($error) ?>
             </p>
 
-            <form method="post" action="result.php" id="predictionForm">
+            <form method="post" action="/predictor/result" id="predictionForm">
 
                 <div class="team-grid">
 
@@ -81,7 +68,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             </form>
         </div>
     </main>
-
+    <?php require 'footer.php'; ?>
     <script src="js/script.js"></script>
 
 </body>

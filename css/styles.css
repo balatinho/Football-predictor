@@ -2,12 +2,57 @@
     box-sizing: border-box;
 }
 
+/* ---------------- THEME TOKENS ---------------- */
+:root{
+  --bg: lightgrey;
+  --text: black;
+  --card-bg: lightgray;
+  --border: black;
+  --banner-bg: black;
+  --banner-text: white;
+  --link: #fff;
+  --nav-hover: #444;
+  --btn-bg: black;
+  --btn-text: white;
+  --btn-hover: #555;
+  --table-hover: #f2f2f2;
+  --result-card-bg: #fff;
+  --result-card-border: #e6e6e6;
+  --track-bg: #e6e6e6;
+  --footer-bg: #111;
+  --footer-text: #fff;
+}
+
+/* When body has .dark, override the tokens */
+body.dark{
+  --bg: #0f1115;
+  --text: #e8e8e8;
+  --card-bg: #1a1f2b;
+  --border: #2b3242;
+  --banner-bg: #05060a;
+  --banner-text: #e8e8e8;
+  --link: #e8e8e8;
+  --nav-hover: #1f2633;
+  --btn-bg: #e8e8e8;
+  --btn-text: #111;
+  --btn-hover: #cfcfcf;
+  --table-hover: #151a24;
+  --result-card-bg: #121621;
+  --result-card-border: #2b3242;
+  --track-bg: #2b3242;
+  --footer-bg: #05060a;
+  --footer-text: #e8e8e8;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     line-height: 1.5;
-    background: lightgrey;
-    color: black;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .container {
@@ -16,9 +61,13 @@ body {
     padding: 28px 15px;
 }
 
+main {
+    flex: 1;
+}
+
 .banner {
-    background: black;
-    color: white;
+    background: var(--banner-bg);
+    color: var(--banner-text);
     width: 100%;
 }
 
@@ -84,7 +133,7 @@ body {
 }
 
 .nav-bar a {
-    color: #fff;
+    color: var(--link);
     text-decoration: none;
     padding: 8px 10px;
     border-radius: 6px;
@@ -98,12 +147,12 @@ body {
 }
 
 .nav-bar a:hover {
-    background: #444;
+    background: var(--nav-hover);
 }
 
 .nav-bar a.active {
     color: black;
-    background: white;
+    background: lightgrey;
 }
 
 .hero {
@@ -129,8 +178,8 @@ body {
     border-radius: 8px;
     font-size: 15px;
     font-weight: 600;
-    background: black;
-    color: white;
+    background: var(--btn-bg);
+    color: var(--btn-text);
 }
 
 .primary-btn:hover {
@@ -140,9 +189,9 @@ body {
 .card {
     margin-top: 18px;
     padding: 16px;
-    border: 1px solid black;
+    border: 1px solid var(--border);
     border-radius: 12px;
-    background: lightgray;
+    background: var(--card-bg);
 }
 
 .card h2 {
@@ -222,39 +271,81 @@ body {
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    background: black;
-    color: white;
+    background: var(--btn-bg);
+    color: var(--btn-text);
 }
 
 .btn button:hover {
-    background: #555;
+    background: var(--btn-hover);
 }
 
-/* Results page layout */
-.results-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* centers blocks */
+/* ---------- Results Table Styling ---------- */
+
+.results-page table {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.results-page th,
+.results-page td {
+    padding: 12px 14px;
     text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
 }
 
-.results-page table tr:hover {
-    background-color: #f2f2f2;
+.results-page th {
+    background: var(--banner-bg);
+    color: var(--banner-text);
+    font-weight: 600;
+}
+
+.results-page tr:hover {
+    background-color: var(--table-hover);
+}
+
+.results-page tbody tr:nth-child(even) {
+    background: rgba(0,0,0,0.03);
+}
+
+body.dark .results-page tbody tr:nth-child(even) {
+    background: rgba(255,255,255,0.03);
+}
+
+.filter-form{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0 18px 0;
+}
+
+.filter-form input{
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--result-card-bg);
+  color: var(--text);
 }
 
 .search-btn {
+    padding: 4px 10px;
     display: inline-block;
     justify-content: center;
     text-decoration: none;
     font-size: 14px;
-    background: black;
-    color: white;
-    border-radius: 3px;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border-radius: 5px;
 }
 
 .search-btn:hover {
-    background: #555;
+    background: var(--btn-hover);
 }
 
 /* Result Page CSS */
@@ -271,8 +362,8 @@ body {
 .result-card {
     width: 100%;
     max-width: 800px;
-    background: #fff;
-    border: 1px solid #e6e6e6;
+    background: var(--result-card-bg);
+    border: 1px solid var(--result-card-border);
     border-radius: 12px;
     padding: 24px;
     margin-top: 10px;
@@ -298,7 +389,7 @@ body {
 
 .prob-track {
     height: 16px;
-    background: #e6e6e6;
+    background: var(--track-bg);
     border-radius: 999px;
     overflow: hidden;
 }
@@ -323,12 +414,12 @@ body {
     border-radius: 8px;
     font-size: 15px;
     font-weight: 600;
-    background: black;
-    color: white;
+    background: var(--btn-bg);
+    color: var(--btn-text);
 }
 
 .result-btn:hover {
-    background: #555;
+    background: var(--btn-hover);
 }
 
 .result-actions {
@@ -336,4 +427,24 @@ body {
     justify-content: center;
     margin-top: 10px;
     gap: 12px;
+}
+
+.site-footer {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 20px 0;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.breadcrumb{
+  font-size: 13px;
+  opacity: 0.8;
+  margin-top: 10px;
 }
