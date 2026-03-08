@@ -2,7 +2,6 @@
     box-sizing: border-box;
 }
 
-/* ---------------- THEME TOKENS ---------------- */
 :root{
   --bg: lightgrey;
   --text: black;
@@ -23,7 +22,6 @@
   --footer-text: #fff;
 }
 
-/* When body has .dark, override the tokens */
 body.dark{
   --bg: #0f1115;
   --text: #e8e8e8;
@@ -279,7 +277,7 @@ main {
     background: var(--btn-hover);
 }
 
-/* ---------- Results Table Styling ---------- */
+/* results page*/
 
 .results-page table {
     width: 100%;
@@ -354,11 +352,9 @@ body.dark .results-page tbody tr:nth-child(even) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* centers blocks */
     text-align: left;
 }
 
-/* Card-style panel for the result content */
 .result-card {
     width: 100%;
     max-width: 800px;
@@ -441,10 +437,4 @@ body.dark .results-page tbody tr:nth-child(even) {
 .footer-inner {
     max-width: 1000px;
     margin: 0 auto;
-}
-
-.breadcrumb{
-  font-size: 13px;
-  opacity: 0.8;
-  margin-top: 10px;
 }

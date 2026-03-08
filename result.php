@@ -3,7 +3,6 @@ require 'db.php';
 require 'functions.php';
 require 'header.php';
 
-// If viewing an existing prediction
 if (isset($_GET['id'])) {
 
     $predictionId = (int) $_GET['id'];
@@ -26,7 +25,6 @@ if (isset($_GET['id'])) {
         die("Prediction not found.");
     }
 
-    // Use saved data instead of recalculating
     $homeName = $saved['home_team'];
     $awayName = $saved['away_team'];
 
@@ -45,19 +43,19 @@ if (isset($_GET['id'])) {
 
     $viewMode = "new";
 
-    // 1) Read and validate input
     $homeId = isset($_POST['home_team']) ? (int) $_POST['home_team'] : 0;
     $awayId = isset($_POST['away_team']) ? (int) $_POST['away_team'] : 0;
 
     if ($homeId <= 0 || $awayId <= 0) {
-        die("Error: Please select both teams.");
+        header("Location: predict.php?error=Please%20select%20both%20teams.");
+        exit;
     }
 
     if ($homeId === $awayId) {
-        die("Error: Home and Away teams must be different.");
+        header("Location: predict.php?error=Home%20and%20Away%20teams%20must%20be%20different.");
+        exit;
     }
 
-    // 2) Fetch team names for display
     $stmt = $pdo->prepare("SELECT team_name FROM teams WHERE team_id = :id");
     $stmt->execute([':id' => $homeId]);
     $homeName = $stmt->fetchColumn();
@@ -66,13 +64,12 @@ if (isset($_GET['id'])) {
     $awayName = $stmt->fetchColumn();
 
     if (!$homeName || !$awayName) {
-        die("Error: One or both teams not found in the database.");
+        header("Location: predict.php?error=One%20or%20both%20teams%20not%20found%20in%20the%20database.");
+        exit;
     }
 
-    // 3) Run prediction
     $result = predict_poisson($pdo, $homeId, $awayId, 5);
 
-    // 4) Store prediction (for evaluation later)
     try {
         $insert = $pdo->prepare("
     INSERT INTO predictions (home_team_id, away_team_id, predicted_outcome, p_home, p_draw, p_away, home_lambda, away_lambda, created_at)
@@ -132,7 +129,6 @@ if (isset($_GET['id'])) {
             <h2>Outcome Probabilities</h2>
 
             <?php
-            // Convert probabilities to percentages for display
             $homePct = round($result['p_home'] * 100, 2);
             $drawPct = round($result['p_draw'] * 100, 2);
             $awayPct = round($result['p_away'] * 100, 2);

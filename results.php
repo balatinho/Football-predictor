@@ -2,10 +2,8 @@
 require 'db.php';
 require 'header.php';
 
-// Get search input (if provided)
 $teamFilter = isset($_GET['team']) ? trim($_GET['team']) : '';
 
-// Base SQL query
 $sql = "
 SELECT
   p.prediction_id,
@@ -19,7 +17,6 @@ JOIN teams t1 ON p.home_team_id = t1.team_id
 JOIN teams t2 ON p.away_team_id = t2.team_id
 ";
 
-// If user typed a team name, add WHERE clause
 if ($teamFilter !== '') {
     $sql .= "
     WHERE t1.team_name LIKE :team
@@ -34,7 +31,6 @@ LIMIT 50
 
 $stmt = $pdo->prepare($sql);
 
-// Bind parameter only if filtering
 if ($teamFilter !== '') {
     $stmt->bindValue(':team', '%' . $teamFilter . '%', PDO::PARAM_STR);
 }

@@ -38,7 +38,7 @@ $predCount = (int) $pdo->query("SELECT COUNT(*) FROM predictions")->fetchColumn(
                 <li>Select a home team and an away team.</li>
                 <li>The system retrieves relevant historical match data from the database.</li>
                 <li>A statistical model calculates outcome probabilities.</li>
-                <li>The predicted outcome and probabilities are displayed and saved for evaluation.</li>
+                <li>The predicted outcome and probabilities are displayed and saved.</li>
             </ol>
         </section>
 
