@@ -46,8 +46,18 @@ if (isset($_GET['id'])) {
     $homeId = isset($_POST['home_team']) ? (int) $_POST['home_team'] : 0;
     $awayId = isset($_POST['away_team']) ? (int) $_POST['away_team'] : 0;
 
-    if ($homeId <= 0 || $awayId <= 0) {
+    if ($homeId <= 0 && $awayId <= 0) {
         header("Location: predict.php?error=Please%20select%20both%20teams.");
+        exit;
+    }
+
+    if ($homeId <= 0) {
+        header("Location: predict.php?error=Please%20select%20the%20home%20team.");
+        exit;
+    }
+    
+    if ($awayId <= 0) {
+        header("Location: predict.php?error=Please%20select%20the%20away%20team.");
         exit;
     }
 

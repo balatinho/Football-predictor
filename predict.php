@@ -37,7 +37,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
                     <div class="field">
                         <label for="home_team"><strong>Home Team</strong></label><br>
-                        <select id="home_team" name="home_team" required>
+                        <select id="home_team" name="home_team">
                             <option value="" disabled selected hidden>Choose Home Team</option>
                             <?php foreach ($teams as $team): ?>
                                 <option value="<?= (int) $team['team_id'] ?>">
@@ -49,7 +49,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
                     <div class="field">
                         <label for="away_team"><strong>Away Team</strong></label><br>
-                        <select id="away_team" name="away_team" required>
+                        <select id="away_team" name="away_team">
                             <option value="" disabled selected hidden>Choose Away Team</option>
                             <?php foreach ($teams as $team): ?>
                                 <option value="<?= (int) $team['team_id'] ?>">

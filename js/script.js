@@ -23,12 +23,25 @@ document.addEventListener("DOMContentLoaded", () => {
     return true;
   }
 
+  function validateSelection() {
+    if (!home.value) {
+      showError("Please select the home team.");
+      return false;
+    }
+    if (!away.value) {
+      showError("Please select the away team.");
+      return false;
+    }
+    clearError();
+    return true;
+  }
+
   if (form) {
     home.addEventListener("change", validateTeams);
     away.addEventListener("change", validateTeams);
 
     form.addEventListener("submit", (e) => {
-      if (!validateTeams()) {
+      if (!validateTeams() || !validateSelection()) {
         e.preventDefault();
       }
     });
